@@ -27,10 +27,9 @@ def set_custom_prompt():
     )
     return prompt
 
-
 def load_llm():
     model_path = '/home/haridoss/Models/llama-models/models/llama3/meta-llama/Meta-Llama-3-8B-Instruct'
-    
+ 
     try:
         hf_pipeline = pipeline('text-generation', model=model_path, device=0) 
         generator = HuggingFacePipeline(pipeline=hf_pipeline)
@@ -38,6 +37,15 @@ def load_llm():
     except Exception as e:
         print(f"Error loading model: {e}")
         raise
+
+def check_gpus():
+    num_gpus = torch.cuda.device_count()
+    current_device = torch.cuda.current_device()
+    print(f"Number of GPUs available: {num_gpus}")
+    print(f"Current GPU being used: {current_device}")
+
+# Call this function to check GPU usage
+
 
 generator = load_llm()
 
@@ -57,6 +65,7 @@ def handle_user_message(message, chat_history):
     qa_prompt = set_custom_prompt()
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, output_key="answer")
     qa = chaatBot_Mode_chain(generator, qa_prompt, db, memory)
+    check_gpus()
     response = qa({'question': message})
     helpful_answer_marker = "Helpful answer:\n"
     answer_start = response['answer'].find(helpful_answer_marker)
