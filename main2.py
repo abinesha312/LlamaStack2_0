@@ -12,7 +12,6 @@ from langchain_community.llms import HuggingFacePipeline
 import chainlit as cl
 import logging
 
-# Set up logging
 logging.basicConfig(level=logging.INFO)
 
 DB_FAISS_PATH = 'vectorstore/db_faiss'
@@ -113,5 +112,4 @@ async def main(message):
     await cl.Message(content=answer).send()
 
 if __name__ == "__main__":
-    # Run the Chainlit application
     cl.run()

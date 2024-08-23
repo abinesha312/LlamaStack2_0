@@ -1,6 +1,5 @@
 import json
 
-# Define the configuration parameters
 config = {
     "architectures": ["LlamaForCausalLM"],
     "hidden_size": 4096,
@@ -10,10 +9,8 @@ config = {
     "model_type": "llama"
 }
 
-# Path to save the config file
 config_file_path = '/home/haridoss/Models/llama-models/models/llama3_1/Meta-Llama-3.1-8B-Instruct/config.json'
 
-# Save the configuration to a file
 with open(config_file_path, 'w') as config_file:
     json.dump(config, config_file, indent=4)
 

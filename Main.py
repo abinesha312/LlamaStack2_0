@@ -1,7 +1,7 @@
 import gradio as gr
 from pages import login_page, register_page, chatbot_page
 from auth import authenticate, create_user
-from chatbot import handle_user_message  # Import the new function
+from chatbot import handle_user_message
 
 def change_page(page):
     return {
@@ -97,10 +97,8 @@ with gr.Blocks() as demo:
         inputs=[page_state],
         outputs=[login_group, register_group, chatbot_group, page_state]
     )
-
-    # Use the new function for handling user messages
     msg.submit(handle_user_message, [msg, chatbot], [msg, chatbot])
     clear.click(lambda: None, None, chatbot, queue=False)
 
 if __name__ == "__main__":
-    demo.launch(share=True)  # Set share=True to create a public link
+    demo.launch(share=True)
